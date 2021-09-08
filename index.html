@@ -1,0 +1,102 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nutrition Calculator</title>
+  <meta name="description" content="A Simple Nutrition Calculator for Pet Food">
+  <meta name="author" content="Holden">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+
+<body>
+  <div class="wrapper flex">
+    <div class="recipe-type-selector padding-bottom flex">
+      <div>
+        <input type="radio" id="dog-recipes" name="recipe" value="dog" checked>
+        <label for="dog-recipes">Compare dog recipes</label>
+      </div>
+      <div>
+        <input type="radio" id="cat-recipes" name="recipe" value="dog">
+        <label for="cat-recipes">Compare cat recipes</label>
+      </div>
+    </div>
+    <div class="brand-selector padding-bottom flex">
+      <div class="padding-bottom-small">
+        <label for="pet-food-select">Name of pet food brand</label>
+        <select name="pet-food" id="pet-food-select">
+          <option selected disabled>Select Pet Food Brand</option>
+          <optgroup label="Blue Buffalo Wilderness">
+            <option value="0">Chicken</option>
+            <option value="1">Duck</option>
+            <option value="2">Salmon</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="padding-bottom-small">
+        <label for="nomnom-food-select">Compare with Nom Nom</label>
+        <select name="nomnom-food" id="nomnom-food-select">
+          <option selected value="0">Beef Mash</option>
+          <option value="1">Chicken Cuisine</option>
+          <option value="2">Turkey Fare</option>
+          <option value="3">Pork Potluck</option>
+        </select>
+      </div>
+    </div>
+    <div class="call-to-compare">
+      <p>
+        Select a pet food brand to get a nutrient comparison
+      </p>
+    </div>
+    <div class="hidden nutrition-comparison padding-right">
+      <div class="nutrition-percentages padding-bottom">
+      </div>
+      <div class="nutrition-comparison padding-bottom">
+        <div class="pet-food-brand-nutrition-data">
+        </div>
+        <div class="nomnom-nutrition-data">
+        </div>
+      <div class="nutrition-overview flex padding-bottom">
+        <div class="padding-bottom-small">
+          <h4>Protein</h4>
+          <p>
+            Not all proteins are created equal. Kibble and other more processed foods can use less digestible, lower quality protein.
+          </p>
+        </div>
+        <div class="padding-bottom-small">
+          <h4>Fat</h4>
+          <p>
+            Fat can oxidize over time, causing issues with digestion. We monitor our fresh diets for oxidation, and the fats are healthier since they are fresh.
+          </p>
+        </div>
+        <div class="padding-bottom-small">
+          <h4>Carbohydrate</h4>
+          <p>
+            Nom Nom uses only whole food sources of carbohydrates - no grain byproducts, sugars, or starches added.
+          </p>
+        </div>
+      </div>
+      <div class="nutrition-disclaimers padding-bottom-small">
+        * All units above are given in grams per 1000 calories (g/kcal).
+
+        The information for other brands' foods should be used as a guide only, albeit one that is in most cases better than the percentage. Actual values should be available from the manufacturer. Nom Nom is not liable for any misuse, inaccuracy, or other legal shenanigans related to the above.
+      </div>
+      <div class="call-to-action flex">
+        <div>
+          READY TO GO FRESH?
+        </div>
+        <div>
+          Let's get started
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/scripts.js"></script>
+</body>
+</html>
