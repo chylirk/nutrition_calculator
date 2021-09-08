@@ -50,7 +50,7 @@ table {
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 90%;
   margin: 10px;
   padding: 10px;
   font-family: arial;
@@ -58,6 +58,10 @@ table {
 
 .flex {
   flex-direction: column;
+}
+
+.flex-item {
+  flex: 1;
 }
 
 .padding-bottom {
@@ -78,6 +82,10 @@ table {
 
 .padding-left-small {
   padding-left: 10px;
+}
+
+.selector {
+  width: 100%;
 }
 
 .hidden {

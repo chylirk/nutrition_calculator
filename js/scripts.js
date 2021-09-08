@@ -66,6 +66,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const nutritionPercentages = document.querySelector('.nutrition-percentages');
   const petFoodSelector = document.querySelector('#pet-food-select');
   const nomNomSelector = document.querySelector('#nomnom-food-select');
+  const dogRecipesRadio = document.querySelector('#dog-recipes');
+  const catRecipesRadio = document.querySelector('#cat-recipes');
+
+  let petType = 'dog';
 
   let addDogFoodOptions = () => {
     for (let i = 1; i < petFoodSelector.options.length; i++) {
@@ -94,24 +98,71 @@ document.addEventListener('DOMContentLoaded', (event) => {
     })
   }
 
+  let addCatFoodOptions = () => {
+    for (let i = 1; i < petFoodSelector.options.length; i++) {
+      if (i === 0) {
+        petFoodSelector.options[i].setAttribute('selected', true)
+      } else {
+        petFoodSelector.options[i] = null;
+      }
+    }
+
+    catFoodData.forEach((data, idx) => {
+      let newOption = document.createElement('option');
+      let optionText = document.createTextNode(data.name);
+      newOption.appendChild(optionText);
+      newOption.setAttribute('value', idx);
+      petFoodSelector.appendChild(newOption);
+    })
+  }
+
+  let addCatNomNomOptions = () => {
+    for (let i = 0; i < nomNomSelector.options.length; i++) {
+      nomNomSelector.options[i] = null;
+    }
+    catNomNomData.forEach((data, idx) => {
+      let newOption = document.createElement('option');
+      let optionText = document.createTextNode(data.name);
+      newOption.appendChild(optionText);
+      newOption.setAttribute('value', idx);
+      nomNomSelector.appendChild(newOption);
+    })
+  }
+
   addDogFoodOptions();
   addDogNomNomOptions();
 
-  // add listener to radio buttons
-  //    update the petType
-  //    update the selector options
+  catRecipesRadio.addEventListener('click', (event) => {
+    addCatFoodOptions();
+    addCatNomNomOptions();
+    petType = 'cat';
+    if (callToCompare.classList.contains('hidden')) {
+      callToCompare.classList.remove('hidden');
+    }
+
+    if (!nutritionComparison.classList.contains('hidden')) {
+      nutritionComparison.classList.add('hidden');
+    }
+  });
+
+  dogRecipesRadio.addEventListener('click', (event) => {
+    addDogFoodOptions();
+    addDogNomNomOptions();
+    petType = 'cat';
+  });
 
   petFoodSelector.addEventListener('change', (event) => {
     let option = parseInt(event.target.value, 10);
     let nomNomOption = parseInt(nomNomSelector.value, 10);
     let selectedBrand;
     let selectedNomNom;
-    if (petType === 'dog') {
+    if (petType === 'cat') {
+      selectedBrand = catFoodData[option];
+      selectedNomNom = catNomNomData[nomNomOption];
+    } else {
       selectedBrand = dogFoodData[option];
       selectedNomNom = dogNomNomData[nomNomOption];
     }
-    // let selectedBrand = petFoodData[option];
-    // let selectedNomNom = nomNomData[nomNomOption];
 
     if (!callToCompare.classList.contains('hidden')) {
       callToCompare.classList.add('hidden');
@@ -128,30 +179,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
           has a calorie density of ${macronutrients.calorieDensity}kcal/kg.`
     
     petFoodNutritionData.innerHTML = `\
-    <img src=${selectedBrand.image} class="brand-image padding-bottom-small">\
-    <div>\
-    <p>Protein</p>\
-    <p>${macronutrients.proteinGrams}</p>\
-    <p>Fat</p>\
-    <p>${macronutrients.fatGrams}</p>\
-    <p>Carbohydrates</p>\
-    <p>${macronutrients.carbohydrateGrams}</p>\
+    <div class="padding-bottom-small flex-item">\
+      <div class="logo">\
+      </div>\
+      \
+      <img src=${selectedBrand.image} class="brand-image padding-bottom-small">\
+    </div>\
+    <div class="flex-item">\
+      <p>Protein</p>\
+      <p>${macronutrients.proteinGrams}</p>\
+      <p>Fat</p>\
+      <p>${macronutrients.fatGrams}</p>\
+      <p>Carbohydrates</p>\
+      <p>${macronutrients.carbohydrateGrams}</p>\
     </div>\
     `
 
     let nomNomMacronutrients = selectedNomNom.macronutrients;
 
     nomNomNutritionData.innerHTML = `\
-    <img src="imgs/nom_nom_logo.svg" class="nom-nom-logo padding-bottom-small">\
-    ${selectedNomNom.name}\
-    <img src=${selectedNomNom.image} class="brand-image padding-bottom-small">\
-    <div>\
-    <p>Protein</p>\
-    <p>${nomNomMacronutrients.proteinGrams}</p>\
-    <p>Fat</p>\
-    <p>${nomNomMacronutrients.fatGrams}</p>\
-    <p>Carbohydrates</p>\
-    <p>${nomNomMacronutrients.carbohydrateGrams}</p>\
+    <div class="padding-bottom-small flex-item">\
+      <div class="logo">
+        <img src="imgs/nom_nom_logo.svg" class="nom-nom-logo padding-bottom-small">\
+      </div>
+      ${selectedNomNom.name}\
+      <img src=${selectedNomNom.image} class="brand-image padding-bottom-small">\
+    </div>\
+    <div class="flex-item">\
+      <p>Protein</p>\
+      <p>${nomNomMacronutrients.proteinGrams}</p>\
+      <p>Fat</p>\
+      <p>${nomNomMacronutrients.fatGrams}</p>\
+      <p>Carbohydrates</p>\
+      <p>${nomNomMacronutrients.carbohydrateGrams}</p>\
     </div>\
     `
   })
