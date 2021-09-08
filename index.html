@@ -17,24 +17,24 @@
 
 <body>
   <div class="wrapper flex">
-    <div class="recipe-type-selector padding-bottom flex">
-      <div>
+    <div class="recipe-type-selector-container padding-bottom flex">
+      <div class="recipe-type-selector">
         <input type="radio" id="dog-recipes" name="recipe" value="dog" checked>
         <label for="dog-recipes">Compare dog recipes</label>
       </div>
-      <div>
+      <div class="recipe-type-selector">
         <input type="radio" id="cat-recipes" name="recipe" value="dog">
         <label for="cat-recipes">Compare cat recipes</label>
       </div>
     </div>
-    <div class="brand-selector padding-bottom flex">
-      <div class="padding-bottom-small">
+    <div class="brand-selector-container padding-bottom flex">
+      <div class="brand-selector">
         <label for="pet-food-select">Name of pet food brand</label>
         <select name="pet-food" class="selector padding-right" id="pet-food-select">
           <option selected disabled>Select Pet Food Brand</option>
         </select>
       </div>
-      <div class="padding-bottom-small">
+      <div class="brand-selector">
         <label for="nomnom-food-select">Compare with Nom Nom</label>
         <select name="nomnom-food" class="selector padding-right" id="nomnom-food-select">
         </select>
@@ -85,7 +85,7 @@
           READY TO GO FRESH?
         </div>
         <div>
-          Let's get started
+          <a href="https://www.nomnomnow.com/profile" target="_blank">Let's get started</a>
         </div>
       </div>
     </div>

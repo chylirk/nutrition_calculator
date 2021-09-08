@@ -11,20 +11,44 @@ const dogFoodData = [
     },
     image: 'imgs/blue_buffalo_wilderness_chicken.jpg'
   },
-]
-
-const catFoodData = [
   {
-    name: 'Blue Buffalo Wilderness Chicken - for Cats!',
+    name: 'Blue Buffalo Wilderness Duck',
     macronutrients: {
       proteinPercentage: 34,
       fatPercentage: 15,
-      calorieDensity: 3599,
+      calorieDensity: 3596,
       proteinGrams: 99,
       fatGrams: 44,
       carbohydrateGrams: 79,
     },
-    image: 'imgs/blue_buffalo_wilderness_chicken.jpg'
+    image: 'imgs/blue_buffalo_duck.jpg'
+  },
+]
+
+const catFoodData = [
+  {
+    name: 'Blue Buffalo Wilderness Chicken',
+    macronutrients: {
+      proteinPercentage: 40,
+      fatPercentage: 18,
+      calorieDensity: 3832,
+      proteinGrams: 108,
+      fatGrams: 50,
+      carbohydrateGrams: 57,
+    },
+    image: 'imgs/blue_buffalo_cat_chicken.jpg'
+  },
+  {
+    name: 'Blue Buffalo Wilderness Salmon',
+    macronutrients: {
+      proteinPercentage: 40,
+      fatPercentage: 18,
+      calorieDensity: 3850,
+      proteinGrams: 108,
+      fatGrams: 49,
+      carbohydrateGrams: 58,
+    },
+    image: 'imgs/blue_buffalo_cat_salmon.jpg'
   },
 ]
 
@@ -50,11 +74,11 @@ const catNomNomData = [
       proteinPercentage: 34,
       fatPercentage: 15,
       calorieDensity: 3599,
-      proteinGrams: 93,
-      fatGrams: 48,
-      carbohydrateGrams: 75,
+      proteinGrams: 163,
+      fatGrams: 42,
+      carbohydrateGrams: 21,
     },
-    image: 'imgs/bowl_beef_square.png'
+    image: 'imgs/bowl_cat_chicken_square.png'
   },
 ]
 
@@ -71,10 +95,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   let petType = 'dog';
 
-  let addDogFoodOptions = () => {
+  let resetPetFoodOptions = () => {
+    petFoodSelector.selectedIndex = 0;
+    petFoodSelector.options.length = 1;
+
     for (let i = 1; i < petFoodSelector.options.length; i++) {
       petFoodSelector.options[i] = null;
     }
+  }
+
+  let resetNomNomOptions = () => {
+    for (let i = 0; i < nomNomSelector.options.length; i++) {
+      nomNomSelector.options[i] = null;
+    };
+  }
+
+  let addDogFoodOptions = () => {
+    resetPetFoodOptions();
 
     dogFoodData.forEach((data, idx) => {
       let newOption = document.createElement('option');
@@ -86,9 +123,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   let addDogNomNomOptions = () => {
-    for (let i = 0; i < nomNomSelector.options.length; i++) {
-      nomNomSelector.options[i] = null;
-    }
+    resetNomNomOptions();
+
     dogNomNomData.forEach((data, idx) => {
       let newOption = document.createElement('option');
       let optionText = document.createTextNode(data.name);
@@ -99,13 +135,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   let addCatFoodOptions = () => {
-    for (let i = 1; i < petFoodSelector.options.length; i++) {
-      if (i === 0) {
-        petFoodSelector.options[i].setAttribute('selected', true)
-      } else {
-        petFoodSelector.options[i] = null;
-      }
-    }
+    resetPetFoodOptions();
 
     catFoodData.forEach((data, idx) => {
       let newOption = document.createElement('option');
@@ -117,9 +147,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   let addCatNomNomOptions = () => {
-    for (let i = 0; i < nomNomSelector.options.length; i++) {
-      nomNomSelector.options[i] = null;
-    }
+    resetNomNomOptions();
+
     catNomNomData.forEach((data, idx) => {
       let newOption = document.createElement('option');
       let optionText = document.createTextNode(data.name);
@@ -148,7 +177,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
   dogRecipesRadio.addEventListener('click', (event) => {
     addDogFoodOptions();
     addDogNomNomOptions();
-    petType = 'cat';
+    petType = 'dog';
+    if (callToCompare.classList.contains('hidden')) {
+      callToCompare.classList.remove('hidden');
+    }
+
+    if (!nutritionComparison.classList.contains('hidden')) {
+      nutritionComparison.classList.add('hidden');
+    }
   });
 
   petFoodSelector.addEventListener('change', (event) => {
@@ -179,40 +215,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
           has a calorie density of ${macronutrients.calorieDensity}kcal/kg.`
     
     petFoodNutritionData.innerHTML = `\
-    <div class="padding-bottom-small flex-item">\
-      <div class="logo">\
+      <div class="padding-bottom-small flex-item">\
+        <img src=${selectedBrand.image} class="brand-image padding-bottom-small">\
       </div>\
-      \
-      <img src=${selectedBrand.image} class="brand-image padding-bottom-small">\
-    </div>\
-    <div class="flex-item">\
-      <p>Protein</p>\
-      <p>${macronutrients.proteinGrams}</p>\
-      <p>Fat</p>\
-      <p>${macronutrients.fatGrams}</p>\
-      <p>Carbohydrates</p>\
-      <p>${macronutrients.carbohydrateGrams}</p>\
-    </div>\
-    `
+      <div class="flex-item">\
+        <p>Protein</p>\
+        <p>${macronutrients.proteinGrams}</p>\
+        <p>Fat</p>\
+        <p>${macronutrients.fatGrams}</p>\
+        <p>Carbohydrates</p>\
+        <p>${macronutrients.carbohydrateGrams}</p>\
+      </div>\
+      `
 
     let nomNomMacronutrients = selectedNomNom.macronutrients;
 
     nomNomNutritionData.innerHTML = `\
-    <div class="padding-bottom-small flex-item">\
-      <div class="logo">
-        <img src="imgs/nom_nom_logo.svg" class="nom-nom-logo padding-bottom-small">\
-      </div>
-      ${selectedNomNom.name}\
-      <img src=${selectedNomNom.image} class="brand-image padding-bottom-small">\
-    </div>\
-    <div class="flex-item">\
-      <p>Protein</p>\
-      <p>${nomNomMacronutrients.proteinGrams}</p>\
-      <p>Fat</p>\
-      <p>${nomNomMacronutrients.fatGrams}</p>\
-      <p>Carbohydrates</p>\
-      <p>${nomNomMacronutrients.carbohydrateGrams}</p>\
-    </div>\
-    `
+      <div class="padding-bottom-small flex-item">\
+        <div class="logo">
+          <img src="imgs/nom_nom_logo.svg" class="nom-nom-logo padding-bottom-small">\
+        </div>
+        <h2>${selectedNomNom.name}</h2>\
+        <img src=${selectedNomNom.image} class="brand-image padding-bottom-small">\
+      </div>\
+      <div class="flex-item">\
+        <p>Protein</p>\
+        <p>${nomNomMacronutrients.proteinGrams}</p>\
+        <p>Fat</p>\
+        <p>${nomNomMacronutrients.fatGrams}</p>\
+        <p>Carbohydrates</p>\
+        <p>${nomNomMacronutrients.carbohydrateGrams}</p>\
+      </div>\
+      `
   })
 });
